@@ -1,22 +1,25 @@
 <?php
 
 class DB {
-    protected $db_name = "slum";
-    protected $db_user = "root";
-    protected $db_pass = "";
-    protected $db_host = "localhost";
+    private $server;
+    private $username;
+    private $password;
+    private $dbname;
+    private $charset;
 
     public function connect() {
-        $conn = mysqli($this->db_host, $this->db_user, $this->db_pass);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        $this->server = "localhost";
+        $this->username = "root";
+        $this->password = "";
+        $this->dbname = "slum";
+        $this->charset = "utf8mb4";
+        try {
+            $dsn = "mysql:host=" . $this->server . ";dbname=" . $this->dbname . ";charset=" . $this->charset;
+            $pdo = new PDO($dsn, $this->username, $this->password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        } catch (PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
         }
-
-        mysqli_select_db($this->db_name);
-        echo "nice";
-
-        return true;
     }
-
 }
