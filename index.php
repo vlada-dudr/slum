@@ -1,8 +1,17 @@
 <?php
 require_once("classes/DB.class.php");
-require_once("classes/User.class.php");
 
-$user = new User();
-echo $user->showUsers();
+$instance = DB::getInstance();
+$conn = $instance->getConnection();
+var_dump($conn);
+
+$instance = DB::getInstance();
+$conn = $instance->getConnection();
+var_dump($conn);
+
+$instance = DB::getInstance();
+$conn = $instance->getConnection();
+var_dump($conn);
+
 ?>
 	
