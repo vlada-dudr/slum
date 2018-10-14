@@ -36,6 +36,4 @@ class DB {
   {
     return $this->conn;
   }
-
-
 }
