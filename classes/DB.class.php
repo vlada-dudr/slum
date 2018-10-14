@@ -24,9 +24,18 @@ class DB {
    
     return self::$instance;
   }
-  
-  public function getConnection()
+
+  public function getRow($query) {
+      $stmt = $this->conn->query($query);
+      while($row = $stmt->fetch()) {
+          return $row;
+      }
+  }
+
+  public function getConn()
   {
     return $this->conn;
   }
+
+
 }
