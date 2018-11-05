@@ -1,3 +1,4 @@
+<!doctype html>
 <?php
 
 require_once("Autoloader.php");
@@ -5,29 +6,32 @@ require_once("Autoloader.php");
 spl_autoload_register('Autoloader::ClassLoader');
 
 
-$db = DB::getInstance();
-
-
-//Testing the database
-$stmt = $db->query("SELECT * FROM users LIMIT 2");
-while($row = $stmt->fetch()) {
-	echo $row["username"];
-}
 
 $app = App::getInstance();
+$db = $app->getConn();
 ?>
 
-<!doctype html>
 <html>
 	<head>
 		<title>+Slum-</title>
-		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
 
 	</head>
 
 	<body>
+		<?php
+			//Testing the database
+			$stmt = $db->query("SELECT * FROM text LIMIT 2");
+			while($row = $stmt->fetch()) {
+                echo "<p>\n" . $db->query("SELECT username FROM users WHERE id =" . $row["author"])->fetch()["username"] . "\n<br>\n";
+                echo "<p>\n" . $row["title"] . "\n<br>\n";
+                echo "<p>\n" . nl2br($row["body"]) . "\n<br>\n";
+                echo "<p>\n" . $row["post_date"] . "\n<br>\n";
+			}
+			echo "</p>\n";
+
+		?>
 		<form method="POST" action="register.php">
 
 		</form>
 	</body>
-</hmtl>
+</html>
