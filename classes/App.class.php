@@ -79,10 +79,10 @@ class App {
     public function renderPosts() {
         $posts = $this->getPosts();
 
-        echo "<div class=\"Posts\">";
+        echo "<div class=\"posts\">";
 
         foreach ($posts as $post) {
-          echo "<div class=\"Post\">" .
+          echo "<div class=\"post\">" .
           "<h2 class=\"post__title\">" . $post->title . "</h2>" .
           "<p class=\"post__author\">" . $post->author . "</p>" .
           "<p class=\"post__body\">" . $post->body . "</p>" .

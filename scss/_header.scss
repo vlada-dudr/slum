@@ -1,0 +1,23 @@
+.header {
+  width: 100%;
+  text-align: center;
+  background-color: black;
+  @media screen and (max-width: 760px) {
+    height: 100vh;
+  }
+  &__title {
+    font-family: $plex-sans;
+    font-weight: 600;
+    font-size: 85px;
+    letter-spacing: 6px;
+    color: white;
+    padding: 50px;
+    @media screen and (max-width: 760px) {
+      padding: 0px;
+      font-size: 30px;
+      height: 100%;
+      line-height: 80vh;
+    }
+  }
+
+}

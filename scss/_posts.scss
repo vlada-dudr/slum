@@ -1,0 +1,31 @@
+.posts {
+
+  .post {
+    line-height: 1.5;
+    margin-top: 40px;
+    border-bottom: $default_border;
+    text-align: center;
+    &__title {
+      font-family: $plex-mono;
+      font-weight: 200;
+      font-size: 25px;
+    }
+    &__author {
+      font-family: $plex-mono;
+      font-weight: 100;
+      font-size: 15px;
+      font-style: italic;
+
+    }
+    &__body {
+      display: inline-block;
+    text-align: left;
+    font-family: $plex-serif;
+    font-weight: 400;
+    margin-bottom: 10px;
+    }
+  }
+  &--last {
+    border-bottom: none;
+  }
+}
