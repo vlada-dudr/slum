@@ -8,16 +8,25 @@ class App {
     private $dbpass = '5SbtycTh4R7a3nQp';
     private $dbname = 'slum';
 
-    /*
-    private function renderHeader() {
-        if (isset($_SESSION["username"])) {
-            echo "";
+    public function renderHeader() {
+        if (isset($_SESSION['username'])) {
+            include_once('html/header.html');
         }
         else {
-            echo "";
+            include_once('html/header.html');
         }
     }
-    */
+
+    public function renderFooter() {
+        if (isset($_SESSION['username'])) {
+            include_once('html/footer.html');
+        }
+        else {
+            include_once('html/footer.html');
+        }
+    }
+
+
 
     private function __construct()
     {
@@ -29,7 +38,7 @@ class App {
     }
 
     function __wakeup() {
-        throw new Exception("Serialization not supported.");
+        throw new Exception('Serialization not supported.');
     }
 
     public static function getInstance()
@@ -46,5 +55,37 @@ class App {
     {
         return $this->pdo;
     }
-}
 
+
+
+
+    public function getPosts($inId=null) {
+        if (!empty($inId)) {
+            $stmt = $this->pdo->query("SELECT * FROM text WHERE id = " . $inId . " ORDER BY id DESC");
+        }
+        else {
+            $stmt = $this->pdo->query("SELECT * FROM text ORDER BY id DESC");
+        }
+
+        $postArray = array();
+        while ($row = $stmt->fetch())
+        {
+            $myPost = new Post($row['id'], $row['title'], $row['body'], $row['author'], $row['post_date']);
+            array_push($postArray, $myPost);
+        }
+        return $postArray;
+    }
+
+    public function renderPosts() {
+        $posts = $this->getPosts();
+
+        foreach ($posts as $post) {
+            echo $post->title . "<br>";
+            echo $post->author . "<br>";
+            echo $post->body . "<br>";
+            echo $post->post_date . "<br>";
+            echo $post->post_time . "<br>";
+            echo "<hr>";
+        }
+    }
+}
