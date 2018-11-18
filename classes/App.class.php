@@ -59,25 +59,27 @@ class App {
 
 
 
-    public function getPosts($inId=null) {
-        if (!empty($inId)) {
-            $stmt = $this->pdo->query("SELECT * FROM text WHERE id = " . $inId . " ORDER BY id DESC");
-        }
-        else {
-            $stmt = $this->pdo->query("SELECT * FROM text ORDER BY id DESC");
-        }
+    public function getPostById($inId) {
+        $stmt = $this->pdo->query("SELECT * FROM text WHERE id = " . $inId . " ORDER BY id DESC");
+        $row = $stmt->fetch();
+        return new Post($row['id'], $row['title'], $row['body'], $row['author'], $row['post_date']);
+    }
 
-        $postArray = array();
-        while ($row = $stmt->fetch())
-        {
-            $myPost = new Post($row['id'], $row['title'], $row['body'], $row['author'], $row['post_date']);
-            array_push($postArray, $myPost);
-        }
-        return $postArray;
+
+    /*
+    public function getPosts($limit) {
+      $stmt = $this->pdo->query("SELECT * FROM text LIMIT " . $limit);
+      $postArray = array();
+      while ($row = $stmt->fetch())
+      {
+          $post = new Post($row['id'], $row['title'], $row['body'], $row['author'], $row['post_date']);
+          array_push($postArray, $post);
+      }
+      return $postArray;
     }
 
     public function renderPosts() {
-        $posts = $this->getPosts();
+        $posts = $this->getPosts(2);
 
         echo "<div class=\"posts\">";
 
@@ -92,4 +94,5 @@ class App {
         }
         echo "</div>";
     }
+    */
 }

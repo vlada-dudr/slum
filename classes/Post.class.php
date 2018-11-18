@@ -1,8 +1,7 @@
 <?php
 
-require_once("Autoloader.php");
+require_once("../Autoloader.php");
 spl_autoload_register('Autoloader::ClassLoader');
-
 
 
 class Post {
@@ -13,8 +12,7 @@ class Post {
     public $post_date;
     public $post_time;
 
-    public function __construct($inId=null, $inTitle=null, $inBody=null, $inAuthor=null, $inPost_date=null)
-    {
+    public function __construct($inId=null, $inTitle=null, $inBody=null, $inAuthor=null, $inPost_date=null) {
         $app = App::getInstance();
         $db = $app->getConn();
 

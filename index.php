@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 
 require_once("Autoloader.php");
@@ -9,5 +8,9 @@ $app = App::getInstance();
 $db = $app->getConn();
 
 $app->renderHeader();
-$app->renderPosts();
+//$app->renderPosts();
+
+echo "<div class='posts'></div>";
+echo "<button class='posts__button'>HEck</button>";
+
 $app->renderFooter();
