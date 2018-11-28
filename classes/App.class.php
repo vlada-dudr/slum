@@ -1,5 +1,7 @@
 <?php
-class App {
+
+class App
+{
     private static $instance = null;
     private $pdo;
 
@@ -8,43 +10,46 @@ class App {
     private $dbpass = '5SbtycTh4R7a3nQp';
     private $dbname = 'slum';
 
-    public function renderHeader() {
+    public function renderHeader()
+    {
         if (isset($_SESSION['username'])) {
-            include_once('html/header.html');
-        }
-        else {
-            include_once('html/header.html');
+            include_once 'html/header.html';
+        } else {
+            include_once 'html/header.html';
         }
     }
 
-    public function renderFooter() {
+    public function renderFooter()
+    {
         if (isset($_SESSION['username'])) {
-            include_once('html/footer.html');
-        }
-        else {
-            include_once('html/footer.html');
+            include_once 'html/footer.html';
+        } else {
+            include_once 'html/footer.html';
         }
     }
-
-
 
     private function __construct()
     {
-        $this->pdo = new PDO("mysql:host={$this->dbhost}; dbname={$this->dbname}", $this->dbuser,$this->dbpass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+        try {
+            $this->pdo = new PDO("mysql:host={$this->dbhost}; dbname={$this->dbname}", $this->dbuser, $this->dbpass, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
+        } catch (\PDOException $e) {
+            die('Je to rozbitý');
+        }
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    private function __clone() {
+    private function __clone()
+    {
     }
 
-    function __wakeup() {
+    public function __wakeup()
+    {
         throw new Exception('Serialization not supported.');
     }
 
     public static function getInstance()
     {
-        if(!self::$instance)
-        {
+        if (!self::$instance) {
             self::$instance = new App();
         }
 
@@ -56,15 +61,13 @@ class App {
         return $this->pdo;
     }
 
+    public function getPostById($inId)
+    {
+        $stmt = $this->pdo->query('SELECT * FROM text WHERE id = '.$inId.' ORDER BY id DESC');
+        $row  = $stmt->fetch();
 
-
-
-    public function getPostById($inId) {
-        $stmt = $this->pdo->query("SELECT * FROM text WHERE id = " . $inId . " ORDER BY id DESC");
-        $row = $stmt->fetch();
         return new Post($row['id'], $row['title'], $row['body'], $row['author'], $row['post_date']);
     }
-
 
     /*
     public function getPosts($limit) {
