@@ -9,6 +9,7 @@ class App
     private $dbuser = 'slum';
     private $dbpass = '5SbtycTh4R7a3nQp';
     private $dbname = 'slum';
+    protected $query;
 
     public function renderHeader()
     {
@@ -67,6 +68,20 @@ class App
         $row  = $stmt->fetch();
 
         return new Post($row['id'], $row['title'], $row['body'], $row['author'], $row['post_date']);
+    }
+
+    protected function route()  {
+
+        return $renderable;
+    }
+
+    public function run() {
+        $view = $this->route()
+        ob_start();
+        $this->renderHeader();
+        $view->render();
+        $this->renderFooter();
+        ob_end_flush();
     }
 
     /*

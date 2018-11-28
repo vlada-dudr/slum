@@ -77,4 +77,15 @@ class Post
         if (!empty($inAuthor)) {
         }
     }
+
+    public function render()
+    {
+        echo '<div class="post">'.
+            '<h2 class="post__title">'.$post->title.'</h2>'.
+            '<p class="post__author">'.$post->author.'</p>'.
+            '<p class="post__body">'.$post->body.'</p>'.
+            '<p class="post__date">'.$post->post_date.'</p>'.
+            '<p class="post__time">'.$post->post_time.'</p>'.
+            '</div>';
+    }
 }
